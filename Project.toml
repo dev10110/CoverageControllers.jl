@@ -3,6 +3,13 @@ uuid = "a198fc80-4b06-461c-ba50-c54cbd75a07e"
 authors = ["Devansh Ramgopal Agrawal <devansh@umich.edu> and contributors"]
 version = "1.0.0-DEV"
 
+[deps]
+FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+RecipesBase = "3cdcf5f2-1ef4-517c-9805-6587b60abb01"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
+
 [compat]
 julia = "1.10"
 
