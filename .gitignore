@@ -5,6 +5,9 @@
 /docs/Manifest.toml
 /docs/build/
 
+# vscode
+.vscode
+
 
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/

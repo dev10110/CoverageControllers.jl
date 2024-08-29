@@ -132,20 +132,28 @@ function ergodic_descent_direction_dct(grid::Grid{2}, pos, coeffs)
 end
 
 
-abstract type Robot end
 
-struct SingleIntegrator{F} <: Robot
-    umax::F
-end
 
-function ergodic_controller(grid::Grid{2}, robot::SingleIntegrator, robot_state, tsd, past_traj)
+function ergodic_controller(grid::Grid{2}, robot::SingleIntegrator, robot_state, tsd, past_traj; boundaries = GridBoundary(grid), boundary_correction_distance=0)
 
     # for a single integrator, the state is the position
+    pos = position(robot, robot_state)
 
-    b = ergodic_descent_direction(grid, robot_state, tsd, past_traj)
+    # get the descent direction
+    b = ergodic_descent_direction(grid, pos, tsd, past_traj)
 
-    u = - robot.umax * b / norm(b)
+    # get the control input
+    u = - robot.umax .* normalize(b) 
 
+    # do a boundary correction
+    if (boundary_correction_distance > 0)
+        u_corr = avoid_boundaries(robot, robot_state, u, boundaries; max_dist = boundary_correction_distance)
+        if (u_corr != u)
+            # @show pos, u, u_corr
+            u = u_corr
+        end
+    end
+    
     return u
 
 end
