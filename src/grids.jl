@@ -61,7 +61,7 @@ end
 
 ## pos2ind and ind2pos
 function pos2ind(grid::Grid{D, T}, pos::NTuple{D, T}) where {D, T}
-    ind = ntuple(i -> 1 + Int(floor((pos[i] - grid.o[i]) / grid.dx[i])), D)
+    ind = ntuple(i -> 1 + round(Int, (pos[i] - grid.o[i]) / grid.dx[i]), D)
     return CartesianIndex(ind...)
 end
 
